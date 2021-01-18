@@ -1,103 +1,51 @@
-<!DOCTYPE html>
-<html lang="en">
-	<head>
-		<meta charset="UTF-8" />
-		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
-		<link rel="stylesheet" href="style.css" />
-		<link	href="https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,300;0,400;1,500&display=swap" rel="stylesheet" />
-		<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.13.0/css/all.min.css"/>
-		<title>Document</title>
-	</head>
-	<body>
-		<div class="container">
-			<div class="side">
-				<div class="header">
-					<div class="avatar">
-						<img src="https://randomuser.me/api/portraits/women/64.jpg" alt="" />
-					</div>
-					<div class="title">Meu perfil</div>
-				</div>
-				<div class="menu">
-					<ul>
-						<li>Matches</li>
-						<li class="active">Mensagens</li>
-					</ul>
-				</div>
-				<div class="messages">
-					<div class="avatar">
-						<img src="https://randomuser.me/api/portraits/women/38.jpg" alt="" />
-					</div>
-					<div class="message">
-						<div class="user">Caroline</div>
-						<div class="text">Lorem ipsum dolor sit amet consectetur adipisicing</div>
-					</div>
-				</div>
-				<div class="messages">
-					<div class="avatar">
-						<img src="https://randomuser.me/api/portraits/women/39.jpg" alt="" />
-					</div>
-					<div class="message">
-						<div class="user">Caroline</div>
-						<div class="text">Lorem ipsum dolor sit amet consectetur adipisicing</div>
-					</div>
-				</div>
-				<div class="messages">
-					<div class="avatar">
-						<img src="https://randomuser.me/api/portraits/women/40.jpg" alt="" />
-					</div>
-					<div class="message">
-						<div class="user">Caroline</div>
-						<div class="text">Lorem ipsum dolor sit amet consectetur adipisicing</div>
-					</div>
-				</div>
-				<div class="messages">
-					<div class="avatar">
-						<img src="https://randomuser.me/api/portraits/women/41.jpg" alt="" />
-					</div>
-					<div class="message">
-						<div class="user">Caroline</div>
-						<div class="text">Lorem ipsum dolor sit amet consectetur adipisicing</div>
-					</div>
-				</div>
-				<div class="messages">
-					<div class="avatar">
-						<img src="https://randomuser.me/api/portraits/women/42.jpg" alt="" />
-					</div>
-					<div class="message">
-						<div class="user">Caroline</div>
-						<div class="text">Lorem ipsum dolor sit amet consectetur adipisicing</div>
-					</div>
-				</div>
-			</div>
-			<div class="content">
-				<div class="card">
-					<div class="user">
-						<img
-							class="user"
-							src="https://images.unsplash.com/photo-1532910404247-7ee9488d7292?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=375&q=80"
-							alt=""
-						/>
-						<div class="profile">
-							<div class="name">Rafaela <span>20</span></div>
-							<div class="local">
-								<i class="fas fa-map-marker-alt"></i>
-								<span>a 20 quilômetros daqui</span>
-							</div>
-						</div>
-					</div>
-				</div>
-				<div class="buttons">
-					<div class="no">
-						<i class="fas fa-times"></i>
-					</div>
-					<div class="star">
-						<i class="fas fa-star fa"></i>
-					</div>
-					<div class="heart">
-						<i class="fas fa-heart"></i>
-					</div>
-				</div>
-			</div>
-		</div>
-	</body>
-</html>
+<head>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="stylesheet" href="style.css">
+<script src="tinder.js"> </script>
+</head>
+
+
+
+<div class="stage">
+  <div class="title">What Kind of Traveler Are You?</div>
+    <div id="stacked-cards-block" class="stackedcards stackedcards--animatable init">
+      <div class="stackedcards-container">
+        <div class="card">
+          <div class="card-content">
+            <div class="card-image"><img src="https://image.ibb.co/gQsq07/Adventure_and_Outdoor.png" width="100%" height="100%"/></div>
+            <div class="card-titles">
+              <h1>Adventure <br/> and Outdoor</h1>
+              <h3>10 Destinations</h3>
+            </div>
+          </div>
+          <div class="card-footer">
+            <div class="popular-destinations-text">Popular <br/> Destinations</div>
+            <div class="popular-destinations-images">
+              <div class="circle"><img src="https://image.ibb.co/jmEYL7/adventure_1.jpg" width="100%" height="100%"/></div>
+              <div class="circle"><img src="https://image.ibb.co/nsCynn/adventure_2.jpg" width="100%" height="100%"/></div>
+              <div class="circle"><img src="https://image.ibb.co/hmsL07/adventure_3.jpg" width="100%" height="100%"/></div>
+            </div>
+          </div>
+        </div>
+        <div class="card">
+          <div class="card-content">
+            <div class="card-image"><img src="https://image.ibb.co/fXPg7n/Beach_and_Chill.png" width="100%" height="100%"/></div>
+            <div class="card-titles">
+              <h1>Beach <br/> and Chill</h1>
+              <h3>12 Destinations</h3>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="stackedcards--animatable stackedcards-overlay top"><img src="https://image.ibb.co/m1ykYS/rank_army_star_2_3x.png"  width="auto" height="auto"/></div>
+      <div class="stackedcards--animatable stackedcards-overlay right"><img src="https://image.ibb.co/dCuESn/Path_3x.png" width="auto" height="auto"/></div>
+      <div class="stackedcards--animatable stackedcards-overlay left"><img src="https://image.ibb.co/heTxf7/20_status_close_3x.png" width="auto" height="auto"/></div>
+    </div>
+    <div class="global-actions">
+      <div class="left-action"><img src="https://image.ibb.co/heTxf7/20_status_close_3x.png" width="26" height="26"/></div>
+      <div class="top-action"><img src="https://image.ibb.co/m1ykYS/rank_army_star_2_3x.png" width="18" height="16"/></div>
+      <div class="right-action"><img src="https://image.ibb.co/dCuESn/Path_3x.png" width="30" height="28"/></div>
+  </div>
+</div>
+
+<div class="final-state hidden"><h2>Got it! We received your preferences! <br/> To submit again, press F5.</h2></div>
