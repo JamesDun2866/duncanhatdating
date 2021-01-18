@@ -1,197 +1,97 @@
-/*---------------------------------------------------------------------------------
-/*
-/* Main JS
-/*
------------------------------------------------------------------------------------*/  
+'use strict';
 
-(function($) {
+var tinderContainer = document.querySelector('.tinder');
+var allCards = document.querySelectorAll('.tinder--card');
+var nope = document.getElementById('nope');
+var love = document.getElementById('love');
 
-	"use strict";
+function initCards(card, index) {
+  var newCards = document.querySelectorAll('.tinder--card:not(.removed)');
 
-	/*---------------------------------------------------- */
-	/* Preloader
-	------------------------------------------------------ */ 
-   $(window).load(function() {
+  newCards.forEach(function (card, index) {
+    card.style.zIndex = allCards.length - index;
+    card.style.transform = 'scale(' + (20 - index) / 20 + ') translateY(-' + 30 * index + 'px)';
+    card.style.opacity = (10 - index) / 10;
+  });
 
-      // will first fade out the loading animation 
-    	$("#loader").fadeOut("slow", function(){
+  tinderContainer.classList.add('loaded');
+}
 
-        // will fade out the whole DIV that covers the website.
-        $("#preloader").delay(300).fadeOut("slow");
+initCards();
 
-      });       
+allCards.forEach(function (el) {
+  var hammertime = new Hammer(el);
 
-  	})
+  hammertime.on('pan', function (event) {
+    el.classList.add('moving');
+  });
 
+  hammertime.on('pan', function (event) {
+    if (event.deltaX === 0) return;
+    if (event.center.x === 0 && event.center.y === 0) return;
 
-  	/*----------------------------------------------------*/
-  	/* Flexslider
-  	/*----------------------------------------------------*/
-  	$(window).load(function() {
+    tinderContainer.classList.toggle('tinder_love', event.deltaX > 0);
+    tinderContainer.classList.toggle('tinder_nope', event.deltaX < 0);
 
-	  	$('#hero-slider').flexslider({
-	   	namespace: "flex-",
-	      controlsContainer: ".hero-container",
-	      animation: 'fade',
-	      controlNav: true,
-	      directionNav: false,
-	      smoothHeight: true,
-	      slideshowSpeed: 7000,
-	      animationSpeed: 600,
-	      randomize: false,
-	      before: function(slider){
-			   $(slider).find(".animated").each(function(){
-			   	$(this).removeAttr("class");
-			  	});			  	
-			},
-			start: function(slider){
-			   $(slider).find(".flex-active-slide")
-			           	.find("h1").addClass("animated fadeInDown show")
-			           	.next().addClass("animated fadeInUp show");
-			           		
-			   $(window).trigger('resize');		  			 
-			},
-			after: function(slider){
-			 	$(slider).find(".flex-active-slide")
-			           	.find("h1").addClass("animated fadeInDown show")
-			           	.next().addClass("animated fadeInUp show");			  
-			}
-	   });
+    var xMulti = event.deltaX * 0.03;
+    var yMulti = event.deltaY / 80;
+    var rotate = xMulti * yMulti;
 
-	   $('#testimonial-slider').flexslider({
-	   	namespace: "flex-",
-	      controlsContainer: "",
-	      animation: 'slide',
-	      controlNav: true,
-	      directionNav: false,
-	      smoothHeight: true,
-	      slideshowSpeed: 7000,
-	      animationSpeed: 600,
-	      randomize: false,
-	   });
+    event.target.style.transform = 'translate(' + event.deltaX + 'px, ' + event.deltaY + 'px) rotate(' + rotate + 'deg)';
+  });
 
-   });
+  hammertime.on('panend', function (event) {
+    el.classList.remove('moving');
+    tinderContainer.classList.remove('tinder_love');
+    tinderContainer.classList.remove('tinder_nope');
 
+    var moveOutWidth = document.body.clientWidth;
+    var keep = Math.abs(event.deltaX) < 80 || Math.abs(event.velocityX) < 0.5;
 
-   /*----------------------------------------------------*/
-	/* Adjust Primary Navigation Background Opacity
-	------------------------------------------------------*/
-   $(window).on('scroll', function() {
+    event.target.classList.toggle('removed', !keep);
 
-		var h = $('header').height();
-		var y = $(window).scrollTop();
-      var header = $('#main-header');
+    if (keep) {
+      event.target.style.transform = '';
+    } else {
+      var endX = Math.max(Math.abs(event.velocityX) * moveOutWidth, moveOutWidth);
+      var toX = event.deltaX > 0 ? endX : -endX;
+      var endY = Math.abs(event.velocityY) * moveOutWidth;
+      var toY = event.deltaY > 0 ? endY : -endY;
+      var xMulti = event.deltaX * 0.03;
+      var yMulti = event.deltaY / 80;
+      var rotate = xMulti * yMulti;
 
-	   if ((y > h + 30 ) && ($(window).outerWidth() > 768 ) ) {
-	      header.addClass('opaque');	      
-	   }
-      else {
-         if (y < h + 30) {
-            header.removeClass('opaque');
-         }
-         else {
-            header.addClass('opaque');
-         }
-      }
+      event.target.style.transform = 'translate(' + toX + 'px, ' + (toY + event.deltaY) + 'px) rotate(' + rotate + 'deg)';
+      initCards();
+    }
+  });
+});
 
-	});
+function createButtonListener(love) {
+  return function (event) {
+    var cards = document.querySelectorAll('.tinder--card:not(.removed)');
+    var moveOutWidth = document.body.clientWidth * 1.5;
 
+    if (!cards.length) return false;
 
-   /*----------------------------------------------------*/
-  	/* Highlight the current section in the navigation bar
-  	------------------------------------------------------*/
-	var sections = $("section"),
-	navigation_links = $("#nav-wrap a");	
+    var card = cards[0];
 
-	sections.waypoint( {
+    card.classList.add('removed');
 
-       handler: function(direction) {
+    if (love) {
+      card.style.transform = 'translate(' + moveOutWidth + 'px, -100px) rotate(-30deg)';
+    } else {
+      card.style.transform = 'translate(-' + moveOutWidth + 'px, -100px) rotate(30deg)';
+    }
 
-		   var active_section;
+    initCards();
 
-			active_section = $('section#' + this.element.id);
+    event.preventDefault();
+  };
+}
 
-			if (direction === "up") active_section = active_section.prev();
+var nopeListener = createButtonListener(false);
+var loveListener = createButtonListener(true);
 
-			var active_link = $('#nav-wrap a[href="#' + active_section.attr("id") + '"]');			
-
-         navigation_links.parent().removeClass("current");
-			active_link.parent().addClass("current");
-
-		}, 
-
-		offset: '25%'
-
-	});
-
-
-   /*----------------------------------------------------*/
-  	/* FitText Settings
-  	------------------------------------------------------ */
-  	setTimeout(function() {
-
-   	$('#hero-slider h1').fitText(1, { minFontSize: '30px', maxFontSize: '49px' });
-
-  	}, 100);
-
-
-  	/*-----------------------------------------------------*/
-  	/* Mobile Menu
-   ------------------------------------------------------ */  
-   var menu_icon = $("<span class='menu-icon'>Menu</span>");
-  	var toggle_button = $("<a>", {                         
-                        id: "toggle-btn", 
-                        html : "",
-                        title: "Menu",
-                        href : "#" } 
-                        );
-  	var nav_wrap = $('nav#nav-wrap')
-  	var nav = $("ul#nav");  
-   
-   /* if JS is enabled, remove the two a.mobile-btns 
-  	and dynamically prepend a.toggle-btn to #nav-wrap */
-  	nav_wrap.find('a.mobile-btn').remove(); 
-  	toggle_button.append(menu_icon); 
-   nav_wrap.prepend(toggle_button); 
-
-  	toggle_button.on("click", function(e) {
-   	e.preventDefault();
-    	nav.slideToggle("fast");     
-  	});
-
-  	if (toggle_button.is(':visible')) nav.addClass('mobile');
-  	$(window).resize(function() {
-   	if (toggle_button.is(':visible')) nav.addClass('mobile');
-    	else nav.removeClass('mobile');
-  	});
-
-  	$('ul#nav li a').on("click", function() {      
-   	if (nav.hasClass('mobile')) nav.fadeOut('fast');      
-  	});
-
-
-  	/*----------------------------------------------------*/
-  	/* Smooth Scrolling
-  	------------------------------------------------------ */
-  	$('.smoothscroll').on('click', function (e) {
-	 	
-	 	e.preventDefault();
-
-   	var target = this.hash,
-    	$target = $(target);
-
-    	$('html, body').stop().animate({
-       	'scrollTop': $target.offset().top
-      }, 800, 'swing', function () {
-      	window.location.hash = target;
-      });
-
-  	});  
-  
-
-
-
-
-	
-
-})(jQuery);
+nope.addEventListener('click', nopeListener);
+love.addEventListener('click', loveListener);
