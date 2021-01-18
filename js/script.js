@@ -1,5 +1,5 @@
 'use strict';
-
+<script src="https://hammerjs.github.io/dist/hammer.min.js"></script>
 var tinderContainer = document.querySelector('.tinder');
 var allCards = document.querySelectorAll('.tinder--card');
 var nope = document.getElementById('nope');
