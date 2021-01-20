@@ -194,7 +194,7 @@ document.addEventListener("DOMContentLoaded", function(event) {
 				setTimeout(function(){
 					onSwipeRight();
 					resetOverlayRight();
-					window.location.href = "match.html";
+					location.href = "match.html";
 				},500);
 
 			}
@@ -214,7 +214,7 @@ document.addEventListener("DOMContentLoaded", function(event) {
 				setTimeout(function(){
 					onSwipeTop();
 					resetOverlays();
-					window.location.href = "match.html";
+					location.href = "match.html";
 				},400); //wait animations end
 			}
 		};
