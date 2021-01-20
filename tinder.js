@@ -194,7 +194,7 @@ document.addEventListener("DOMContentLoaded", function(event) {
 				setTimeout(function(){
 					onSwipeRight();
 					resetOverlayRight();
-					location.href = "match.html";
+					location.href = "https://duncanhatdating.co.uk/match.html";
 				},500);
 
 			}
@@ -214,7 +214,7 @@ document.addEventListener("DOMContentLoaded", function(event) {
 				setTimeout(function(){
 					onSwipeTop();
 					resetOverlays();
-					location.href = "match.html";
+					location.href = "https://duncanhatdating.co.uk/match.html";
 				},400); //wait animations end
 			}
 		};
