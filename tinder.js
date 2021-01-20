@@ -188,12 +188,15 @@ document.addEventListener("DOMContentLoaded", function(event) {
 					topObj.classList.remove('no-transition');
 					rightObj.style.zIndex = '8';
 					transformUi(0, 0, 1, rightObj);
+
 				}
 
 				setTimeout(function(){
 					onSwipeRight();
 					resetOverlayRight();
-				},300);
+					window.location.href = "match.html";
+				},500);
+
 			}
 		};
 
@@ -211,7 +214,8 @@ document.addEventListener("DOMContentLoaded", function(event) {
 				setTimeout(function(){
 					onSwipeTop();
 					resetOverlays();
-				},300); //wait animations end
+					window.location.href = "match.html";
+				},400); //wait animations end
 			}
 		};
 
